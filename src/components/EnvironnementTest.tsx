@@ -13,6 +13,8 @@ import ClosingWallsTunnel, {
   ClosingWallsHandle,
 } from "./environements/obstacles/ClosingWallTunnel";
 import Level1Platforms from "./environements/obstacles/Level1Plateforms";
+import NatureBackground from "./environements/nature/NatureBackground";
+import RocksBackground from "./environements/nature/RockBackground";
 
 function EnvironmentTest({
   movingWallsRef,
@@ -39,8 +41,8 @@ function EnvironmentTest({
     <>
       {/* Sol */}
       <mesh ref={floorRef} receiveShadow>
-        <planeGeometry args={[30, 280]} />
-        <meshStandardMaterial color="#88aa88" />
+        <planeGeometry args={[200, 280]} />
+        <meshStandardMaterial color="#5E845E" />
       </mesh>
 
       <mesh ref={pathRef} receiveShadow>
@@ -55,6 +57,8 @@ function EnvironmentTest({
       <WallClimb3 onBoostCollect={handleBoostCollect} />
       <ClosingWallsTunnel ref={closingWallsRef} />
       <Level1Platforms />
+      <NatureBackground />
+      <RocksBackground />
     </>
   );
 }

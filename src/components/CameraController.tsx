@@ -23,7 +23,7 @@ function CameraController({ playerPositionRef }: CameraControllerProps) {
     const desiredPosition = new THREE.Vector3(x, y, z).add(idealOffset);
 
     // Super smooth
-    const lerpFactor = 1 - Math.pow(0.3, delta);
+    const lerpFactor = 1 - Math.pow(0.1, delta);
 
     tempVec.lerpVectors(camera.position, desiredPosition, lerpFactor);
 
