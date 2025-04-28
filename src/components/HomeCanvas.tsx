@@ -50,7 +50,7 @@ function HomeCanvas() {
         <OrthographicCamera
           makeDefault
           position={[10, 10, 10]}
-          zoom={60}
+          zoom={50}
           near={-100}
           far={500}
         />
