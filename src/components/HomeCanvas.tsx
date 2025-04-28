@@ -44,9 +44,17 @@ function HomeCanvas() {
 
   return (
     <div className="relative w-screen h-screen">
-      <Canvas shadows>
-        <OrthographicCamera makeDefault position={[10, 10, 10]} zoom={50} />
-        <ambientLight intensity={0.5} />
+      <Canvas shadows gl={{ logarithmicDepthBuffer: false }}>
+        <color attach="background" args={["#D6E892"]} />
+        <fog attach="fog" args={["#D6E892", 10, 30]} />
+        <OrthographicCamera
+          makeDefault
+          position={[10, 10, 10]}
+          zoom={60}
+          near={-100}
+          far={500}
+        />
+        <ambientLight intensity={0.3} />
         <directionalLight
           position={[30, 100, 0]}
           intensity={1.2}
@@ -60,7 +68,7 @@ function HomeCanvas() {
           shadow-camera-top={120}
           shadow-camera-bottom={-120}
         />
-        <ambientLight intensity={0.6} />
+        <ambientLight intensity={0.8} />
         <Physics gravity={[0, -30, 0]}>
           <EnvironmentTest
             closingWallsRef={closingWallsRef}

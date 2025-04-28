@@ -225,9 +225,7 @@ const Player = forwardRef<PlayerHandle, PlayerProps>(
         }
       }
 
-      console.log(velocity.current.y);
-
-      if (velocity.current.y < -7 && positionRef.current[1] < 5) {
+      if (velocity.current.y < -7.5 && positionRef.current[1] < 5) {
         setIsRespawning(true);
         api.velocity.set(0, 0, 0);
         api.angularVelocity.set(0, 0, 0);
