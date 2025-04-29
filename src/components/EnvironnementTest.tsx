@@ -47,7 +47,7 @@ function EnvironmentTest({
 
       <mesh ref={pathRef} receiveShadow>
         <planeGeometry args={[5, 10]} />
-        <meshStandardMaterial color="#B4B094" />
+        <meshStandardMaterial color="#F1BD85" />
       </mesh>
       {/* <Spawn /> */}
       <WallClimb />
