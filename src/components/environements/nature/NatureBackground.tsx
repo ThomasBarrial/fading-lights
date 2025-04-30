@@ -5,8 +5,7 @@ import { useGLTF, Instances, Instance } from "@react-three/drei";
 import { Suspense, useEffect } from "react";
 import * as THREE from "three";
 
-const TREE_URL =
-  "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/tree-beech/model.gltf";
+const TREE_URL = "/3Dmodels/treeModel.gltf"; // Remplacez par l'URL de votre modèle
 
 export default function NatureBackground() {
   return (
@@ -85,13 +84,16 @@ function Trees() {
       receiveShadow // 🛠 Et receiveShadow pour que ça reçoive la lumière du sol
     >
       {treelevel1.map((tree, idx) => (
-        <Instance
-          key={idx}
-          position={tree.position}
-          rotation={[0, tree.rotationY, 0]}
-          scale={tree.scale}
-          frustumCulled={false}
-        />
+        <group key={idx}>
+          {tree.position[2] < 20 && (
+            <Instance
+              position={tree.position}
+              rotation={[0, tree.rotationY, 0]}
+              scale={tree.scale}
+              frustumCulled={false}
+            />
+          )}
+        </group>
       ))}
     </Instances>
   );

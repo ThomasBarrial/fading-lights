@@ -5,8 +5,7 @@ import { useGLTF } from "@react-three/drei";
 import { Suspense, useEffect } from "react";
 import * as THREE from "three";
 
-const ROCK_URL =
-  "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/rock/model.gltf"; // modèle simple
+const ROCK_URL = "/3Dmodels/rocksModel.gltf";
 
 export default function RocksBackground() {
   const { scene } = useGLTF(ROCK_URL);
@@ -47,13 +46,17 @@ export default function RocksBackground() {
     <Suspense fallback={null}>
       <group>
         {rockPositionLevel1.map((rock, idx) => (
-          <primitive
-            key={idx}
-            object={scene.clone()}
-            position={rock.position}
-            scale={[rock.scale, rock.scale, rock.scale]}
-            rotation={[0, rock.rotationY, 0]}
-          />
+          <group key={idx}>
+            {rock.position[2] < 20 && (
+              <primitive
+                key={idx}
+                object={scene.clone()}
+                position={rock.position}
+                scale={[rock.scale, rock.scale, rock.scale]}
+                rotation={[0, rock.rotationY, 0]}
+              />
+            )}
+          </group>
         ))}
       </group>
     </Suspense>
