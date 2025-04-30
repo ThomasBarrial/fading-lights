@@ -1,7 +1,7 @@
 "use client";
 
 import { useThree, useFrame } from "@react-three/fiber";
-import { RefObject } from "react";
+import { RefObject, useRef } from "react";
 import * as THREE from "three";
 
 type CameraControllerProps = {
@@ -11,25 +11,22 @@ type CameraControllerProps = {
 function CameraController({ playerPositionRef }: CameraControllerProps) {
   const { camera } = useThree();
 
-  const idealOffset = new THREE.Vector3(5, 8, 5);
-  const tempVec = new THREE.Vector3();
+  const idealOffset = new THREE.Vector3(5, 8, 5); // Position relative à viser
+  const smoothedPosition = useRef(new THREE.Vector3());
 
-  useFrame((state, delta) => {
-    // console.log(playerPositionRef.current);
+  useFrame((_, delta) => {
     if (!playerPositionRef.current) return;
 
+    // 🧠 Position visée : position du joueur + offset
     const [x, y, z] = playerPositionRef.current;
+    const targetPosition = new THREE.Vector3(x, y, z).add(idealOffset);
 
-    const desiredPosition = new THREE.Vector3(x, y, z).add(idealOffset);
+    // ✨ Interpolation très douce (caméra suit un point virtuel lissé)
+    smoothedPosition.current.lerp(targetPosition, 1 - Math.pow(0.01, delta));
 
-    // Super smooth
-    const lerpFactor = 1 - Math.pow(0.1, delta);
+    camera.position.copy(smoothedPosition.current);
 
-    tempVec.lerpVectors(camera.position, desiredPosition, lerpFactor);
-
-    camera.position.copy(tempVec);
-
-    // Regarde légèrement au-dessus du joueur
+    // 🎯 La caméra regarde légèrement au-dessus du joueur
     camera.lookAt(new THREE.Vector3(x, y + 1, z));
   });
 
